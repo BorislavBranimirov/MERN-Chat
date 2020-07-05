@@ -1,0 +1,32 @@
+{
+  "name": "mern-chat",
+  "version": "1.0.0",
+  "description": "A chat application built with the MERN stack",
+  "scripts": {
+    "start": "node server.js",
+    "start-dev": "concurrently \"nodemon server.js\" \"npm start --prefix client\"",
+    "start-no-dev-server": "npm run build && cross-env NODE_ENV=production nodemon server.js",
+    "client": "npm start --prefix client",
+    "server": "nodemon server.js",
+    "build": "npm run build --prefix client",
+    "build-dev": "npm run build-dev --prefix client",
+    "heroku-postbuild": "cd client && npm install --dev && npm run build"
+  },
+  "author": "Borislav Branimirov",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.17",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2"
+  }
+}

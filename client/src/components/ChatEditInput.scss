@@ -1,0 +1,15 @@
+.chat-edit-input-field {
+    resize: none;
+    border: 0.1em solid $primary-outline-color;
+    border-radius: 0.3em;
+    width: 100%;
+    height: 0;
+    max-height: 6em;
+    padding: 0.8em;
+    font-size: 1em;
+}
+
+.chat-edit-input-btn-group {
+    @include btn-group;
+    margin-top: 0.5em;
+}

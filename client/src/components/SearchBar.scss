@@ -1,0 +1,30 @@
+.search-bar {
+    margin: 1.5em 1em;
+
+    form {
+        display: flex;
+        
+        input[type=text] {
+            border: 0.1em solid $primary-outline-color;
+            border-right: none;
+            border-radius: 0.4em 0 0 0.4em;
+            padding: 0.7em;
+            font-size: 1em;
+            min-width: 0;
+            flex-grow: 1;
+        }
+    
+        button[type=submit] {
+            @include btn-primary;
+            border-radius: 0 0.4em 0.4em 0;
+            padding: 0 0.8em;
+        }
+    }
+
+    .cancel-search-btn {
+        @include btn-primary;
+        width: 100%;
+        margin-top: 1em;
+        border-radius: 0.4em;
+    }
+}

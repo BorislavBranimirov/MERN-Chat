@@ -1,0 +1,14 @@
+.side-menu-btn {
+    @include btn-primary;
+    position: fixed;
+    top: 0;
+    z-index: 1001;
+    border-radius: 0 0 0.6em 0;
+    padding: 0.6em 0.7em;
+}
+
+@media (min-width: 900px) {
+    .side-menu-btn {
+        display: none;
+    }
+}

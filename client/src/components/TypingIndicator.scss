@@ -1,0 +1,8 @@
+.typing-indicator {
+    padding: 0.4em 0;
+    font-size: 0.8em;
+    
+    &:empty:before {
+        content: '\200b'; // unicode zero width space character
+    }
+}

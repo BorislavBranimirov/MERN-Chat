@@ -1,0 +1,49 @@
+$navbar-color: rgb(248, 249, 250);
+$sidebar-bg-color: rgb(242,242,244);
+$sidebar-hover-color: rgb(248, 249, 250);
+$sidebar-selected-color: rgb(241, 242, 243);
+$primary-outline-color: rgb(204, 204, 204);
+$btn-primary-color: rgb(99, 108, 116);
+
+@mixin btn-primary {
+    background-color: $btn-primary-color;
+    color: white;
+    border: none;
+    border-radius: 0.3em;
+    padding: 0.6em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        background-color: rgb(132, 139, 146);
+    }
+
+    &:active {
+        background-color: rgb(161, 166, 172);
+    }
+
+    &:focus {
+        box-shadow: 0 0 0.5em rgba(99, 108, 116, 0.6);
+    }
+}
+
+@mixin btn-group {
+    input[type=button]  {
+        @include btn-primary;
+        padding: 0.25em 0.9em;
+        font-size: 0.9em;
+
+        &:first-child  {
+            border-radius: 0.3em 0 0 0.3em;
+        }
+
+        &:not(:last-child)  {
+            border-right: 0.1em solid white;
+        }
+
+        &:last-child  {
+            border-radius: 0 0.3em 0.3em 0;
+        }
+    }
+}
