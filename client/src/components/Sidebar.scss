@@ -78,6 +78,10 @@
             border-bottom: none;
         }
 
+        &:only-child a {
+            border-radius: 0.5em;
+        }
+
         .leave-room-btn {
             position: absolute;
             height: 50%;
