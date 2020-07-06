@@ -42,13 +42,13 @@ const ChatEditInput = (props) => {
 
     const handleKeyDown = (event) => {
         // if enter is pressed without shift, send the message
-        if (event.keyCode === 13 && !event.shiftKey) {
+        if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             return handleSave(event);
         }
 
         // if escape is pressed, hide edit field
-        if (event.keyCode === 27) {
+        if (event.key === 'Escape' || event.key === 'Esc') {
             event.preventDefault();
             return props.hideEditField();
         }

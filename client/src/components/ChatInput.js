@@ -33,7 +33,7 @@ const ChatInput = (props) => {
 
     const handleKeyDown = (event) => {
         // if enter is pressed without shift, send the message
-        if (event.keyCode === 13 && !event.shiftKey) {
+        if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             handleSubmit(event);
         }
