@@ -30,7 +30,7 @@ exports.getAllByChatRoom = async (req, res) => {
 
         return res.json(messages);
     } catch (err) {
-        return res.status(500).send({ err: 'An error occurred while searching for messages' });
+        return res.status(500).json({ err: 'An error occurred while searching for messages' });
     }
 };
 
@@ -49,7 +49,7 @@ exports.getOneById = async (req, res) => {
 
         return res.json(message);
     } catch (err) {
-        return res.status(500).send({ err: 'An error occurred while searching for message' });
+        return res.status(500).json({ err: 'An error occurred while searching for message' });
     }
 };
 

@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
             accessToken: accessToken
         });
     } catch (err) {
-        return res.status(500).send({ err: 'An error occurred while trying to log in' });
+        return res.status(500).json({ err: 'An error occurred while trying to log in' });
     }
 };
 

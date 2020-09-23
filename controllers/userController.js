@@ -6,7 +6,7 @@ exports.getAll = async (req, res) => {
         const users = await User.find({}, { 'password': 0 });
         return res.json(users);
     } catch (err) {
-        return res.status(500).send({ err: 'An error occurred while searching for users' });
+        return res.status(500).json({ err: 'An error occurred while searching for users' });
     }
 };
 
@@ -15,7 +15,7 @@ exports.getOneByName = async (req, res) => {
         const user = await User.findOne({ username: req.params.username }, { 'password': 0 });
         return res.json(user);
     } catch (err) {
-        return res.status(500).send({ err: 'An error occurred while searching for user' });
+        return res.status(500).json({ err: 'An error occurred while searching for user' });
     }
 };
 
@@ -50,7 +50,7 @@ exports.createOne = async (req, res) => {
             username: newUser.username
         });
     } catch (err) {
-        return res.status(500).send({ err: 'An error occurred while creating user' });
+        return res.status(500).json({ err: 'An error occurred while creating user' });
     }
 };
 
@@ -71,12 +71,12 @@ exports.changeOneByName = async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
-            return res.status(404).send({ err: 'User not found' });
+            return res.status(404).json({ err: 'User not found' });
         }
 
         const isMatch = await user.comparePassword(req.body.password)
         if (isMatch) {
-            return res.status(422).send({ err: 'No changes from original user password were provided' });
+            return res.status(422).json({ err: 'No changes from original user password were provided' });
         }
 
         user.password = req.body.password;
@@ -88,7 +88,7 @@ exports.changeOneByName = async (req, res) => {
             username: patchedUser.username
         });
     } catch (err) {
-        return res.status(500).send({ err: 'An error occurred while updating user' });
+        return res.status(500).json({ err: 'An error occurred while updating user' });
     }
 };
 
@@ -100,7 +100,7 @@ exports.deleteOneByName = async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
-            return res.status(404).send({ err: 'User not found' });
+            return res.status(404).json({ err: 'User not found' });
         }
 
         // delete all messages in chat rooms owned by the user
@@ -123,6 +123,6 @@ exports.deleteOneByName = async (req, res) => {
 
         return res.json({ success: true });
     } catch (err) {
-        return res.status(500).send({ err: 'An error occurred while deleting user' });
+        return res.status(500).json({ err: 'An error occurred while deleting user' });
     }
 };
