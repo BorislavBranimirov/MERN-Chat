@@ -15,6 +15,7 @@ Run the project by following these instructions:
 - Run the suitable npm script (requires nodemon to be globally installed to run the server)
 ```sh
 # Run the api server on port 8000 (by default) and the client on port 8080 (by default)
+# Build the webpack bundle before running this command for the first time
 npm run start-dev
 
 # Build the production webpack bundle and run the server on port 8000 (by default)
