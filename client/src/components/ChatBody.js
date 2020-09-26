@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import ChatEditInput from './ChatEditInput';
@@ -18,7 +18,7 @@ const ChatBody = React.forwardRef((props, bodyRef) => {
     const { setNotifications } = useContext(NotificationContext);
     const history = useHistory();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         scrollToBottom(bodyRef.current);
     }, []);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { socket } from '../socketClient';
@@ -14,7 +14,7 @@ const ChatInput = (props) => {
         inputFieldRef.current.focus();
     }, []);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // lowest point of chat body viewport
         const bodyScrollBottom = props.chatBodyRef.current.scrollTop + props.chatBodyRef.current.clientHeight;
 
