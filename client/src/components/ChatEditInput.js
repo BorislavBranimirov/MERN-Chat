@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import NotificationContext from '../../utils/notificationContext';
 import { scrollToBottom } from '../../utils/scrollUtils';
@@ -10,12 +10,12 @@ const ChatEditInput = (props) => {
     const { setNotifications } = useContext(NotificationContext);
     const history = useHistory();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         setEditInput(props.editInput);
         editInputFieldRef.current.focus();
     }, []);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // resize text area to fit content
         const totalBorderHeight = editInputFieldRef.current.offsetHeight - editInputFieldRef.current.clientHeight;
         editInputFieldRef.current.style.height = '0';
