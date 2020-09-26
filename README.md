@@ -16,11 +16,11 @@ Run the project by following these instructions:
 ```sh
 # Run the api server on port 8000 (by default) and the client on port 8080 (by default)
 # Build the webpack bundle before running this command for the first time
-npm run start-dev
+npm run dev
 
 # Build the production webpack bundle and run the server on port 8000 (by default)
 # The server fetches both the bundle and the api
-npm run start-no-dev-server
+npm run prod
 
 # Build the production webpack bundle
 npm run build
