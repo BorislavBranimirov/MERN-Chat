@@ -1,103 +1,121 @@
-import React, { useState, useEffect, useLayoutEffect, useRef, useContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useContext,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { socket } from '../socketClient';
 import NotificationContext from '../../utils/notificationContext';
 
 const ChatInput = (props) => {
-    const [input, setInput] = useState('');
-    const inputFieldRef = useRef(null);
-    const { setNotifications } = useContext(NotificationContext);
-    const history = useHistory();
+  const [input, setInput] = useState('');
+  const inputFieldRef = useRef(null);
+  const setNotifications = useContext(NotificationContext);
+  const history = useHistory();
 
-    useEffect(() => {
-        inputFieldRef.current.focus();
-    }, []);
+  useEffect(() => {
+    inputFieldRef.current.focus();
+  }, []);
 
-    useLayoutEffect(() => {
-        // lowest point of chat body viewport
-        const bodyScrollBottom = props.chatBodyRef.current.scrollTop + props.chatBodyRef.current.clientHeight;
+  useLayoutEffect(() => {
+    if (props.chatBodyRef.current && inputFieldRef.current) {
+      // lowest point of chat body viewport
+      const bodyScrollBottom =
+        props.chatBodyRef.current.scrollTop +
+        props.chatBodyRef.current.clientHeight;
 
-        const totalBorderHeight = inputFieldRef.current.offsetHeight - inputFieldRef.current.clientHeight;
-        inputFieldRef.current.style.height = '0';
-        inputFieldRef.current.style.height = inputFieldRef.current.scrollHeight + totalBorderHeight + 'px';
+      const totalBorderHeight =
+        inputFieldRef.current.offsetHeight - inputFieldRef.current.clientHeight;
+      inputFieldRef.current.style.height = '0';
+      inputFieldRef.current.style.height =
+        inputFieldRef.current.scrollHeight + totalBorderHeight + 'px';
 
-        // preserve old lowest point
-        props.chatBodyRef.current.scrollTop = bodyScrollBottom - props.chatBodyRef.current.clientHeight;
-    }, [input]);
-
-    const handleChange = (event) => {
-        socket.emit('userTyping', props.chatRoomId);
-        setInput(event.target.value);
-    };
-
-    const handleKeyDown = (event) => {
-        // if enter is pressed without shift, send the message
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            handleSubmit(event);
-        }
+      // preserve old lowest point
+      props.chatBodyRef.current.scrollTop =
+        bodyScrollBottom - props.chatBodyRef.current.clientHeight;
     }
+  }, [input, props.chatBodyRef]);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const handleChange = (event) => {
+    socket.emit('userTyping', props.chatRoomId);
+    setInput(event.target.value);
+  };
 
-        // don't submit empty messages
-        if (input.trim().length === 0)
-            return;
+  const handleKeyDown = (event) => {
+    // if enter is pressed without shift, send the message
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit(event);
+    }
+  };
 
-        try {
-            const res = await fetch('/api/chatrooms/' + props.chatRoomId + '/messages', {
-                method: 'POST',
-                body: JSON.stringify({
-                    body: input
-                }),
-                headers: {
-                    'Content-Type': 'application/json; charset=UTF-8',
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-                }
-            });
-            // check if token is expired expired and could not be renewed
-            if (res.tokenExpired) {
-                return history.push('/login');
-            }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-            const resJSON = await res.json();
-            // check if an error was returned
-            if (resJSON.err) {
-                return setNotifications((notifications) => {
-                    return [...notifications, { type: 'error', body: resJSON.err }];
-                });
-            }
+    // don't submit empty messages
+    if (input.trim().length === 0) return;
 
-            setInput('');
-        } catch (err) {
-            setNotifications((notifications) => {
-                return [...notifications, { type: 'error', body: 'Error occurred while submitting new message' }];
-            });
+    try {
+      const res = await fetch(
+        '/api/chatrooms/' + props.chatRoomId + '/messages',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            body: input,
+          }),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+          },
         }
-    };
+      );
+      // check if token is expired and could not be renewed
+      if (res.tokenExpired) {
+        return history.push('/login');
+      }
 
-    return (
-        <div className="chat-input">
-            <form onSubmit={handleSubmit}>
-                <textarea
-                    className="chat-input-field"
-                    name="input"
-                    ref={inputFieldRef}
-                    value={input}
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                />
-                <button
-                    className="chat-input-btn"
-                    type="submit"
-                >
-                    <FontAwesomeIcon icon="paper-plane" />
-                </button>
-            </form>
-        </div>
-    );
+      const resJSON = await res.json();
+      if (resJSON.err) {
+        return setNotifications((notifications) => {
+          return [...notifications, { type: 'error', body: resJSON.err }];
+        });
+      }
+
+      setInput('');
+    } catch (err) {
+      setNotifications((notifications) => {
+        return [
+          ...notifications,
+          {
+            type: 'error',
+            body: 'Error occurred while submitting new message',
+          },
+        ];
+      });
+    }
+  };
+
+  return (
+    <div className="chat-input">
+      <form onSubmit={handleSubmit}>
+        <textarea
+          className="chat-input-field"
+          name="input"
+          ref={inputFieldRef}
+          value={input}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+        <button className="chat-input-btn" type="submit">
+          <FontAwesomeIcon icon={faPaperPlane} />
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default ChatInput;

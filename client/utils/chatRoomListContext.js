@@ -1,8 +1,5 @@
 import React from 'react';
 
-const ChatRoomListContext = React.createContext({
-    userChatRoomList: [],
-    setUserChatRoomList: () => { }
-});
+const ChatRoomListContext = React.createContext(() => {});
 
 export default ChatRoomListContext;

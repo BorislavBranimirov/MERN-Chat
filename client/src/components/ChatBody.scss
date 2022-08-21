@@ -1,47 +1,47 @@
 .chat-body {
-    overflow: auto;
-    box-shadow: inset 0 0 0.4em grey;
-    flex-grow: 1;
-    
-    .message-list {
-        list-style-type: none;
-        
-        & > li {
-            margin: 0.5em 0;
-            border-top: 0.15em solid black;
-            padding: 0.3em 1em;
-        }
+  overflow: auto;
+  box-shadow: inset 0 0 0.4em grey;
+  flex-grow: 1;
 
-        .message {
-            word-wrap: break-word;
-            white-space: pre-wrap;
-        }
-    
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.3em;
-    
-            .message-header-left {
-                min-width: 0;
+  .message-list {
+    list-style-type: none;
 
-                .sender {
-                    font-weight: bold;
-                    margin-right: 0.3em;
-                    word-wrap: break-word;
-                    white-space: pre-wrap;
-                }
-            }
-    
-            .message-header-btn-group {
-                @include btn-group;
-                flex-shrink: 0;
-                padding-top: 0.1em;
-                
-                input[type=button]  {
-                    font-size: 0.85em;
-                }
-            }
-        }
+    & > li {
+      margin: 0.5em 0;
+      border-top: 0.15em solid black;
+      padding: 0.3em 1em;
     }
+
+    .message {
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.3em;
+
+      .message-header-left {
+        min-width: 0;
+
+        .sender {
+          font-weight: bold;
+          margin-right: 0.3em;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+        }
+      }
+
+      .message-header-btn-group {
+        @include btn-group;
+        flex-shrink: 0;
+        padding-top: 0.1em;
+
+        input[type='button'] {
+          font-size: 0.85em;
+        }
+      }
+    }
+  }
 }

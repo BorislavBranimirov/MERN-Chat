@@ -1,66 +1,67 @@
 .form-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5em;
 
-    form {
-        width: 100%;
-        
-        & > label:not(:first-child) {
-            display: block;
-            width: 100%;
-            margin-top: 2.5em;
-        }
-        
-        & > input {
-            display: block;
-            width: 100%;
-            margin: 0.6em 0;
-            padding: 1em;
-            font-size: 1em;
-        
-            &[type=text], &[type=password] {
-                border: 0.1em solid $primary-outline-color;
-                border-radius: 0.3em;
-            }
-            
-            &[type=submit] {
-                @include btn-primary;
-                margin-top: 2.5em;
-                padding: 0.8em;
-            }
-        }
+  form {
+    width: 100%;
 
-        .check-box-wrapper {
-            display: block;
-            width: 100%;
-            margin-top: 2.5em;
-
-            input {
-                cursor: pointer;
-            }
-
-            label {
-                margin-top: 2.5em;
-                margin-left: 1em;
-                cursor: pointer;
-            }
-        }
+    & > label:not(:first-child) {
+      display: block;
+      width: 100%;
+      margin-top: 2.5em;
     }
+
+    & > input {
+      display: block;
+      width: 100%;
+      margin: 0.6em 0;
+      padding: 1em;
+      font-size: 1em;
+
+      &[type='text'],
+      &[type='password'] {
+        border: 0.1em solid $primary-outline-color;
+        border-radius: 0.3em;
+      }
+
+      &[type='submit'] {
+        @include btn-primary;
+        margin-top: 2.5em;
+        padding: 0.8em;
+      }
+    }
+
+    .check-box-wrapper {
+      display: block;
+      width: 100%;
+      margin-top: 2.5em;
+
+      input {
+        cursor: pointer;
+      }
+
+      label {
+        margin-top: 2.5em;
+        margin-left: 1em;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .form-heading {
-    margin-bottom: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 @media (min-width: 900px) {
-    .form-wrapper {
-        margin: 0;
-        
-        form {
-            width: 50%;
-        }
+  .form-wrapper {
+    margin: 0;
+
+    form {
+      width: 50%;
     }
+  }
 }

@@ -1,102 +1,115 @@
 .navbar {
-    grid-area: navbar;
-    display: flex;
-    justify-content: space-between;
-    background-color: $navbar-color;
+  grid-area: navbar;
+  display: flex;
+  justify-content: space-between;
+  background-color: $navbar-color;
 }
 
 $nav-item-display: inline-block;
 $nav-item-display-mobile: block;
 
 .nav-item {
-    display: $nav-item-display;
-    position: relative;
-    margin: 1em 0.6em;
-    color: rgb(80, 80, 80);
+  display: $nav-item-display;
+  position: relative;
+  margin: 1em 0.6em;
+  color: rgb(80, 80, 80);
 
-    // add underline effect on nav items
-    &:not(.nav-username):not(.nav-brand):not(.navbar-extension-btn):after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transform: scaleX(0);
-        transform-origin: left;
-        width: 100%;
-        content: '';
-        background-color: rgb(80, 80, 80);
-        height: 1px;
-        transition: all 0.3s;
-    }
+  // add underline effect on nav items
+  &:not(.nav-username):not(.nav-brand):after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    width: 100%;
+    content: '';
+    background-color: rgb(80, 80, 80);
+    height: 1px;
+    transition: all 0.3s;
+  }
 
-    &:not(.nav-username):not(.nav-brand):not(.navbar-extension-btn):hover:after {
-        transform: scaleX(1);
-    }
+  &:not(.nav-username):not(.nav-brand):hover:after {
+    transform: scaleX(1);
+  }
 
-    &:not(.nav-username):not(.nav-brand):not(.navbar-extension-btn):active:after {
-        transform: scaleX(1);
-    }
+  &:not(.nav-username):not(.nav-brand):active:after {
+    transform: scaleX(1);
+  }
 }
 
-.nav-brand, .nav-username {
-    font-weight: bold;
+.nav-brand,
+.nav-username {
+  font-weight: bold;
 }
-    
-.logout-btn, .navbar-extension-btn {
-    border: none;
-    background-color: inherit;
-    font-size: 1em;
-    cursor: pointer;
+
+.logout-btn,
+.navbar-extension-btn {
+  border: none;
+  background-color: inherit;
+  font-size: 1em;
+  cursor: pointer;
 }
 
 .nav-item-mobile-hide {
-    display: none;
+  display: none;
 }
 
 .app-logged {
-    .navbar {
-        // prevents navbar content from going behind fixed position hamburger menu on the left of screen
-        // used on mobile devices
-        padding-left: 3.5em;
-    }
+  .navbar {
+    // prevents navbar content from going behind fixed position hamburger menu on the left of screen
+    // used on mobile devices
+    padding-left: 3.5em;
+  }
 
-    .nav-brand {
-        display: none;
-    }
+  .nav-brand {
+    display: none;
+  }
 }
 
 .navbar-extension-show {
+  display: flex;
+  flex-direction: column;
+
+  div {
     display: flex;
     flex-direction: column;
+    margin: 0.5em 0;
 
     .nav-item {
-        display: $nav-item-display-mobile;
+      display: $nav-item-display-mobile;
+      margin: 0.5em 0.6em;
     }
+
+    .logout-btn {
+      text-align: left;
+    }
+  }
 }
 
 @media (min-width: 900px) {
+  .navbar {
+    flex-direction: row;
+  }
+
+  .nav-item {
+    display: $nav-item-display;
+  }
+
+  .navbar-extension-btn {
+    display: none;
+  }
+
+  .nav-item-mobile-hide {
+    display: $nav-item-display;
+  }
+
+  .app-logged {
     .navbar {
-        flex-direction: row;
+      padding-left: 0;
     }
 
-    .nav-item {
-        display: $nav-item-display;
+    .nav-brand {
+      display: $nav-item-display;
     }
-
-    .navbar-extension-btn {
-        display: none;
-    }
-
-    .nav-item-mobile-hide {
-        display: $nav-item-display;
-    }
-
-    .app-logged {
-        .navbar {
-            padding-left: 0;
-        }
-
-        .nav-brand {
-            display: $nav-item-display;
-        }
-    }
+  }
 }

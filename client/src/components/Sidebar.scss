@@ -1,130 +1,56 @@
+.side-menu-btn {
+  @include btn-primary;
+  position: fixed;
+  top: 0;
+  z-index: 1001;
+  border-radius: 0 0 0.6em 0;
+  padding: 0.6em 0.7em;
+}
+
 .sidebar-wrapper {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 1000;
-    width: 100%;
-    height: 100%;
-    /* overflow: auto to make sidebar not get taller than viewport */
-    overflow: auto;
-    background-color: transparentize($color: black, $amount: 0.1);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  /* overflow: auto to make sidebar not get taller than viewport */
+  overflow: auto;
+  background-color: transparentize($color: black, $amount: 0.1);
 }
 
 .sidebar-wrapper-hide {
-    position: fixed;
-    display: none;
-    background-color: none;
+  position: fixed;
+  display: none;
+  background-color: none;
 }
 
 .sidebar {
-    background-color: $sidebar-bg-color;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    z-index: 1001;
-    width: 80%;
-    height: 100%;
-}
-
-.found-rooms-message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1em;
-}
-
-.room-list {
-    /* overflow: auto to make room list only as tall as available sidebar height with scrollbar if needed */
-    overflow: auto;
-
-    li {
-        position: relative;
-
-        .active-room {
-            background-color: $sidebar-selected-color;
-            font-weight: bold;
-        }
-
-        a {
-            width: 100%;
-            border: 0.1em solid rgb(221, 221, 221);
-            background-color: white;
-            color: black;
-            padding: 1em;
-            padding-right: 2em;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: block;
-            transition: 0.3s;
-
-            &:hover {
-                background-color: $sidebar-hover-color;
-            }
-
-            &:active {
-                background-color: $sidebar-selected-color;
-            }
-        }
-
-        &:first-child a {
-            border-radius: 0.5em 0.5em 0 0;
-        }
-
-        &:last-child a {
-            border-radius: 0 0 0.5em 0.5em;
-        }
-            
-        &:not(:last-child) a {
-            border-bottom: none;
-        }
-
-        &:only-child a {
-            border-radius: 0.5em;
-        }
-
-        .leave-room-btn {
-            position: absolute;
-            height: 50%;
-            top: 0;
-            bottom: 0;
-            right: 15px;
-            margin-top: auto;
-            margin-bottom: auto;
-            border: none;
-            background-color: transparent;
-            color: rgb(80, 80, 80);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: 0.3s;
-
-            &:hover {
-                color: rgba(80, 80, 80, 0.7);
-            }
-
-            &:active {
-                color: rgba(80, 80, 80, 0.4);
-            }
-        }
-
-        .room-list-lock-icon {
-            position: absolute;
-            right: 15px;
-        }
-    }
+  background-color: $sidebar-bg-color;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1001;
+  width: 80%;
+  height: 100%;
 }
 
 @media (min-width: 900px) {
-    .sidebar-wrapper {
-        position: static;
-        background-color: none;
-    }
+  .side-menu-btn {
+    display: none;
+  }
 
-    .sidebar-wrapper-hide {
-        display: block;
-    }
+  .sidebar-wrapper {
+    position: static;
+    background-color: none;
+  }
 
-    .sidebar {
-        position: static;
-        width: 100%;
-    }
+  .sidebar-wrapper-hide {
+    display: block;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+  }
 }

@@ -1,89 +1,89 @@
 .chat {
-    overflow: auto;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.3em 0.7em 1.3em;
+
+  .chat-header {
+    padding: 1em 0;
+  }
+
+  .room-name {
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    margin-bottom: 0.3em;
+  }
+
+  .room-info {
     display: flex;
     flex-direction: column;
-    padding: 0 1.3em 0.7em 1.3em;
+    align-items: center;
 
-    .chat-header {
-        padding: 1em 0;
-    }
+    .room-admin {
+      min-width: 0;
+      width: 100%;
 
-    .room-name {
-        text-align: center;
+      span {
+        font-weight: bold;
         word-wrap: break-word;
         white-space: pre-wrap;
-        margin-bottom: 0.3em;
+      }
     }
 
-    .room-info {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    a {
+      margin-right: 1.5em;
+      color: rgb(140, 140, 140);
+      font-weight: bold;
+      transition: 0.3s;
 
-        .room-admin {
-            min-width: 0;
-            width: 100%;
+      &:hover {
+        color: rgb(80, 80, 80);
+      }
 
-            span {
-                font-weight: bold;
-                word-wrap: break-word;
-                white-space: pre-wrap;
-            }
-        }
-
-        a {
-            margin-right: 1.5em;
-            color: rgb(140, 140, 140);
-            font-weight: bold;
-            transition: 0.3s;
-
-            &:hover {
-                color: rgb(80, 80, 80);
-            }
-
-            &:active {
-                color: rgb(40, 40, 40);
-            }
-        }
-
-        .room-info-right {
-            margin-top: 0.5em;
-
-            .delete-room-btn {
-                @include btn-primary;
-                margin-top: 0.5em;
-                padding: 0.5em 1.5em;
-            }
-        }
+      &:active {
+        color: rgb(40, 40, 40);
+      }
     }
 
-    .chat-footer {
-        margin-top: auto;
+    .room-info-right {
+      margin-top: 0.5em;
+
+      .delete-room-btn {
+        @include btn-primary;
+        margin-top: 0.5em;
+        padding: 0.5em 1.5em;
+      }
     }
+  }
+
+  .chat-footer {
+    margin-top: auto;
+  }
 }
 
 @media (min-width: 900px) {
-    .chat {
-        .room-name {
-            margin-bottom: 0.7em;
-        }
-
-        .room-info {
-            flex-direction: row;
-            
-            .room-admin {
-                margin-right: 1em;
-            }
-
-            .room-info-right {
-                margin-left: auto;
-                margin-top: 0;
-                flex-shrink: 0;
-
-                .delete-room-btn {
-                    margin-top: 0;
-                }
-            }
-        }
+  .chat {
+    .room-name {
+      margin-bottom: 0.7em;
     }
+
+    .room-info {
+      flex-direction: row;
+
+      .room-admin {
+        margin-right: 1em;
+      }
+
+      .room-info-right {
+        margin-left: auto;
+        margin-top: 0;
+        flex-shrink: 0;
+
+        .delete-room-btn {
+          margin-top: 0;
+        }
+      }
+    }
+  }
 }
