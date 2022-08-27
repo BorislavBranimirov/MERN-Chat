@@ -120,10 +120,6 @@ const Chat = (props) => {
           });
         }
 
-        socket.emit(
-          'setUserTypingUsername',
-          localStorage.getItem('accessToken')
-        );
         setAuthorised(true);
         setRoomInfo({
           id: resLoginJSON.id,

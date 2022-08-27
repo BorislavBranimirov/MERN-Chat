@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { socket } from './socketClient';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,14 +31,25 @@ const App = () => {
   const [sidebarLoaded, setSidebarLoaded] = useState(false);
   const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    // in case socket connects before listener is set up
-    if (socket.connected) {
+  useLayoutEffect(() => {
+    const connectListener = () => {
       setSocketConnected(true);
-    }
-    socket.on('connect', () => {
-      setSocketConnected(true);
-    });
+    };
+    socket.on('connect', connectListener);
+
+    const connectErrorListener = () => {
+      setNotifications((notifications) => {
+        return [
+          ...notifications,
+          {
+            type: 'error',
+            body: 'Failed to authenticate',
+            persistOnPageChange: true,
+          },
+        ];
+      });
+    };
+    socket.on('connect_error', connectErrorListener);
 
     // if user already has an access token on page load, update the app ui with token's info
     const updateAuthUI = async () => {
@@ -51,6 +62,8 @@ const App = () => {
       const payload = jwt_decode(token);
       const username = payload.username;
       setLoggedUser(username);
+      socket.auth.token = token;
+      socket.connect();
     };
 
     if (localStorage.getItem('accessToken')) {
@@ -58,13 +71,14 @@ const App = () => {
     }
 
     return () => {
-      socket.off('connect');
+      socket.off('connect', connectListener);
+      socket.off('connect_error', connectErrorListener);
     };
   }, []);
 
   const userContextObj = { loggedUser, setLoggedUser };
 
-  return socketConnected ? (
+  return (
     <UserContext.Provider value={userContextObj}>
       <ChatRoomListContext.Provider value={setChatRoomList}>
         <NotificationContext.Provider value={setNotifications}>
@@ -121,7 +135,7 @@ const App = () => {
                   exact
                   path="/chatrooms/:id"
                   render={(props) =>
-                    sidebarLoaded ? (
+                    sidebarLoaded && socketConnected ? (
                       <Chat {...props} />
                     ) : (
                       <div className="center">
@@ -138,10 +152,6 @@ const App = () => {
         </NotificationContext.Provider>
       </ChatRoomListContext.Provider>
     </UserContext.Provider>
-  ) : (
-    <div className="center">
-      <FontAwesomeIcon icon={faSpinner} size="4x" pulse />
-    </div>
   );
 };
 

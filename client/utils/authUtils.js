@@ -1,4 +1,5 @@
 import jwt_decode from 'jwt-decode';
+import { socket } from '../src/socketClient';
 
 // function that checks if access token is expired and renews it if it can;
 // returns true and deletes token info from client if access token can't be used
@@ -51,6 +52,7 @@ export const checkTokenExpired = async () => {
 
 export const logout = async () => {
   localStorage.removeItem('accessToken');
+  socket.disconnect();
   try {
     await fetch('/api/auth/logout', {
       method: 'POST',

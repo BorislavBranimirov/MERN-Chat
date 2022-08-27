@@ -8,7 +8,11 @@ const url =
     ? 'http://localhost:8000'
     : loc.protocol + '//' + loc.host;
 
-export const socket = io(url, { transports: ['websocket', 'polling'] });
+export const socket = io(url, {
+  transports: ['websocket', 'polling'],
+  autoConnect: false,
+  auth: { token: null },
+});
 
 socket.on('connect', () => {
   console.log('socket connected');

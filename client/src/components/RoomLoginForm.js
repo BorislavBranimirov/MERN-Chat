@@ -58,10 +58,6 @@ const RoomLoginForm = (props) => {
         // clears any 'wrong password' notifications that the user might have
         setNotifications([]);
 
-        socket.emit(
-          'setUserTypingUsername',
-          localStorage.getItem('accessToken')
-        );
         props.setAuthorised(true);
         props.setRoomInfo({
           id: resLoginJSON.id,

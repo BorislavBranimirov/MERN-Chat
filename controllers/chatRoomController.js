@@ -244,6 +244,12 @@ exports.chatRoomLogin = async (req, res) => {
       return res.status(401).json({ err: 'No socket information sent' });
     }
 
+    // user's socket
+    const socket = res.locals.io.sockets.sockets.get(req.body.socketId);
+    if (!socket || socket.data.username !== res.locals.user.username) {
+      return res.status(401).json({ err: 'Invalid socket' });
+    }
+
     const chatRoom = await ChatRoom.findById(req.params.id);
     if (!chatRoom) {
       return res.status(404).json({ err: 'Chat room not found' });
@@ -280,9 +286,6 @@ exports.chatRoomLogin = async (req, res) => {
 
       await user.save();
     }
-
-    // user's socket
-    const socket = res.locals.io.sockets.sockets.get(req.body.socketId);
 
     // leave any other rooms, except the default room
     for (const roomId of socket.rooms) {

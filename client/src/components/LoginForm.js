@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../utils/userContext';
 import NotificationContext from '../../utils/notificationContext';
+import { socket } from '../socketClient';
 
 const LoginForm = (props) => {
   const [username, setUsername] = useState('');
@@ -54,6 +55,8 @@ const LoginForm = (props) => {
       // save the access token in local storage
       localStorage.setItem('accessToken', resJSON.accessToken);
       setLoggedUser(username);
+      socket.auth.token = resJSON.accessToken;
+      socket.connect();
       props.history.push('/');
     } catch (err) {
       setNotifications((notifications) => {
