@@ -17,6 +17,7 @@
     }
 
     a {
+      position: relative;
       width: 100%;
       border: 0.1em solid rgb(221, 221, 221);
       background-color: white;
@@ -80,6 +81,10 @@
     .room-list-lock-icon {
       position: absolute;
       right: 15px;
+      top: 0;
+      bottom: 0;
+      margin-top: auto;
+      margin-bottom: auto;
     }
   }
 }
